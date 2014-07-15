@@ -1,15 +1,18 @@
-<h2>Register account</h2>
-<div id="new-user">
-    <form action="{{url_for("register")}}" method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password">
-        </div>
-        <input type="submit">
-    </form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <body>
+        <h2>
+            Step 1: Pick your role.
+        </h2>
+        <form action="">
+            <input name="role" type="radio" value="traveler">I want to be a traveler. Request other people (guides) to walk with you on your voyages.<br>
+            <input name="role" type="radio" value="guide">I want to be a guide.
+            Make yourself available to walk with other people (travelers) on their voyages.<br>
+            <input name="role" type="radio" value="guide">I want to be a
+            traveler and a guide. Request others to walk with you or help others on their voyages. Pick which one when you open the app.
+        </form>
+        <form>
+            <input type="submit" name="submit" value="Go to Step 2">
+        </form>
+    </body>
+</html>

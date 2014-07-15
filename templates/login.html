@@ -1,31 +1,27 @@
-{% block body %}
-<h2>Log in</h2>
-<div id="login">
-    <form action="{{url_for("login")}}" method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password">
-        </div>
-        <input type="submit">
-    </form>
-</div>
-
-<h2>Register account</h2>
-<div id="new-user">
-    <form action="{{url_for("register")}}" method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password">
-        </div>
-        <input type="submit">
-    </form>
-</div>
-{% endblock %}
+<!DOCTYPE HTML>
+<html>
+  
+  <body>
+    
+    <h2>
+      Log in
+    </h2>
+    <div id="login">
+      <form action="{{url_for("login")}}" method="POST">
+        <form method="link" action="http://localhost:5000/login">
+          <input type="Submit" value="Submit">
+        </form>
+      </div>
+      
+      <h2>
+        Register account
+      </h2>
+      <div id="new-user">
+        <form action="{{url_for("register")}}" method="POST">
+          <input type="submit">
+      </form>
+      </div>
+      
+  </body>
+  
+  </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h2>
+            Step 2: Create account
+        </h2>{% block body %}
+        <div id="new-user">
+            <form>
+                <div>
+                    <label for="first_name">First Name</label> <input name=
+                    "first_name" type="text">
+                </div>
+                <div>
+                    <label for="last_name">Last Name</label> <input name=
+                    "last_name" type="text">
+                </div>
+                <div>
+                    <label for="email">Email</label> <input name="email" type="text">
+                </div>
+                <div>
+                    <label for="phone">Phone</label> <input name="phone" type=
+                    "text">
+                </div>
+                <div>
+                    <label for="password">Password</label> <input name=
+                    "password" type="password">
+                </div>
+            </form><?php
+            include('db.php');
+            session_start();
+            $session_id='1'; //$session id
+            ?><script src="scripts/jquery.min.js" type="text/javascript"></script> <script src="scripts/jquery.form.js" type="text/javascript"></script> <script type="text/javascript">
+$(document).ready(function() { 
+
+            $('#photoimg').live('change', function()            { 
+                       $("#preview").html('');
+                $("#preview").html('<img src="loader.gif" alt="Uploading...."/>');
+            $("#imageform").ajaxForm({
+                        target: '#preview'
+            }).submit();
+
+            });
+            }); 
+            </script>
+            <form action='ajaximage.php' enctype="multipart/form-data" id=
+            "imageform" method="post" name="imageform">
+                Upload your image <input id="photoimg" name="photoimg" type=
+                "file">
+            </form>
+            <div id='preview'></div><input type="submit"> 
+            <!-- {% endblock %} -->
+        </div>
+    </body>
+</html>
