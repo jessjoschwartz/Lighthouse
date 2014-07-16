@@ -48,5 +48,5 @@ def main():
     pass
 
 if __name__ == "__main__":
-    u1 = session.query(User).get(1)
+    # u1 = session.query(User).get()
     main()

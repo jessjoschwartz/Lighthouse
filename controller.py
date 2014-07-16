@@ -19,11 +19,11 @@ def user_login_get():
 
 @app.route("/login", methods=["POST"])
 def user_login_post():
-    username = request.form['username']
+    email = request.form['email']
     password = request.form['password']
 
     try:
-        user = db_session.query(User).filter_by(email=email, password=password).one()
+        user = db_session.query(User).filter_by(email=email).filter_by(password=password).one()
     except:
         flash("Invalid username or password", "error")
         return redirect(url_for("user_login_get"))
@@ -38,7 +38,9 @@ def register_1_get():
 
 @app.route("/register/1", methods=["POST"])
 def register_1_post():
-    return redirect(url_for("register_2_get"))
+    # return redirect(url_for("register_2_get"))
+    role = request.form.get('role')
+    return role
 
 ### Registration page #2
 
@@ -50,25 +52,24 @@ def register_2_get():
 def register_2_post():
     print request.files["photoimg"]
 
-    # # Create the user object to store our data
-    # user = User()
-    # user.first_name = request.form.get('first_name')
-    # user.last_name = request.form.get('last_name')
-    # user.email = request.form.get('email')
-    # user.phone = request.form.get('phone')
-    # user.password = request.form.get('password')
-    # print user.first_name
+    # Create the user object to store our data
+    user = User()
+    user.first_name = request.form.get('first_name')
+    user.last_name = request.form.get('last_name')
+    user.email = request.form.get('email')
+    user.phone = request.form.get('phone')
+    user.password = request.form.get('password')
 
-    # existing = db_session.query(User).filter_by(email=user.email).first()
-    # if existing:
-    #     flash("Email already in use", "error")
-    #     return redirect(url_for("user_login_get"))
+    existing = db_session.query(User).filter_by(email=user.email).first()
+    if existing:
+        flash("Email already in use", "error")
+        return redirect(url_for("user_login_get"))
 
-    # # Add the user object to the database
-    # db_session.add(user)
+    # Add the user object to the database
+    db_session.add(user)
 
-    # # Save the user in the database
-    # db_session.commit()
+    # Save the user in the database
+    db_session.commit()
 
     # Redirect user to landing page
     return redirect(url_for("traveler_view"))
