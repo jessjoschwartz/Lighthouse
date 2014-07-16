@@ -9,8 +9,8 @@ app.config.from_object(__name__)
 
 ### Login page
 @app.route("/", methods=["GET"])
-def display_login():
-    return render_template("login.html")
+def display_start():
+    return render_template("start.html")
 
 @app.route("/", methods=["POST"])
 def login():
@@ -44,6 +44,7 @@ def register():
 
 @app.route("/register/2", methods=["POST"])
 def display_register_2():
+    print request.files["photoimg"]
     return render_template("register_2.html")
 
     existing = db_session.query(User).filter_by(email=email).first()
