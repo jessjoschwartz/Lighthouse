@@ -33,38 +33,42 @@ def user_login_post():
 
 ### Registration page #1
 @app.route("/register/1", methods=["GET"])
-def display_register_1():
+def register_1_get():
     return render_template("register_1.html")
+
+@app.route("/register/1", methods=["POST"])
+def register_1_post():
+    return redirect(url_for("register_2_get"))
 
 ### Registration page #2
 
 @app.route("/register/2", methods=["GET"])
-def register():
+def register_2_get():
     return render_template("register_2.html")
 
 @app.route("/register/2", methods=["POST"])
-def display_register_2():
+def register_2_post():
     print request.files["photoimg"]
-    return render_template("register_2.html")
 
-    existing = db_session.query(User).filter_by(email=email).first()
-    if existing:
-        flash("Email already in use", "error")
-        return redirect(url_for("login"))
+    # # Create the user object to store our data
+    # user = User()
+    # user.first_name = request.form.get('first_name')
+    # user.last_name = request.form.get('last_name')
+    # user.email = request.form.get('email')
+    # user.phone = request.form.get('phone')
+    # user.password = request.form.get('password')
+    # print user.first_name
 
-    # Create the user object to store our data
-    user = User()
-    user.first_name = request.form.get('first_name')
-    user.last_name = request.form.get('last_name')
-    user.email = request.form('email')
-    user.phone = request.form('phone')
-    user.password = request.form('password')
+    # existing = db_session.query(User).filter_by(email=user.email).first()
+    # if existing:
+    #     flash("Email already in use", "error")
+    #     return redirect(url_for("user_login_get"))
 
-    # Add the user object to the database
-    db_session.add(user)
+    # # Add the user object to the database
+    # db_session.add(user)
 
-    # Save the user in the database
-    db_session.commit()
+    # # Save the user in the database
+    # db_session.commit()
 
     # Redirect user to landing page
     return redirect(url_for("traveler_view"))
@@ -75,12 +79,12 @@ def logout():
     del session['user_id']
     return redirect(url_for("login"))
 
-# ### Traveler view
-# @app.route("/traveler_view", methods=["GET"])
-# def register():
-#     return render_template("traveler_view.html")
+### Traveler view
+@app.route("/traveler_view", methods=["GET"])
+def traveler_view():
+    return render_template("traveler_view.html")
 
-### End class declarations
+## End class declarations
 
 def create_db():
     Base.metadata.create_all(engine)

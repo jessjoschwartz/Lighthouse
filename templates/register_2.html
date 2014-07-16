@@ -8,7 +8,7 @@
             Step 2: Create account
         </h2>{% block body %}
         <div id="new-user">
-            <form method="POST" enctype="multipart/form-data">
+            <form action="{{url_for('register_2_post')}}" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="first_name">First Name</label> <input name=
                     "first_name" type="text">

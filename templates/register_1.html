@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
-    <body>
+    <body> -->
+{% extends "layout.html" %}
+{% block body %}   
         <h2>
             Step 1: Pick your role.
         </h2>
-        <form action="">
+        <form action="{{url_for('register_1_post')}}" method="post">
             <input name="role" type="radio" value="traveler">I want to be a traveler. Request other people (guides) to walk with you on your voyages.<br>
             <input name="role" type="radio" value="guide">I want to be a guide.
             Make yourself available to walk with other people (travelers) on their voyages.<br>
             <input name="role" type="radio" value="guide">I want to be a
             traveler and a guide. Request others to walk with you or help others on their voyages. Pick which one when you open the app.
-        </form>
-        <form>
             <input type="submit" name="submit" value="Go to Step 2">
         </form>
-    </body>
-</html>
+<!--     </body>
+</html> -->
+{% endblock %}
