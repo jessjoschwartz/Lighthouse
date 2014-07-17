@@ -26,9 +26,7 @@ class User(Base):
     last_name = Column(String(64), nullable=True) 
     # photo = Column(String(64), nullable=True) make it with blob
     password = Column(String(64), nullable=True)  
-    traveler = Column(Integer, nullable = True)
-    guide = Column(Integer, nullable = True)
-    both = Column(Integer, nullable = True)
+    role = Column(Integer, nullable = True)
 
 ### End class declarations
 
