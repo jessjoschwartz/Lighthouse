@@ -40,6 +40,12 @@ function initialize() {
         title: 'You are here!.'
       });
 
+      google.maps.event.addListener(marker, 'dragend', function(marker){
+      var latLng = marker.latLng;
+      $latitude.value = latLng.lat();
+      $longitude.value = latLng.lng();
+    });
+
       map.setCenter(pos);
     }, function() {
       handleNoGeolocation(true);
@@ -69,6 +75,8 @@ function handleNoGeolocation(errorFlag) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+    }
+    initialize();
     </script>
   </head>
   <body>
