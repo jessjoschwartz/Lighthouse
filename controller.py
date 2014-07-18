@@ -7,7 +7,7 @@ app = Flask(__name__)
 SECRET_KEY = "fish"
 app.config.from_object(__name__)
 
-### Login page
+### Start page
 @app.route("/", methods=["GET"])
 def display_start():
     return render_template("start.html")
