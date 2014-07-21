@@ -61,6 +61,8 @@ def register_post():
     # Save the user in the database
     db_session.commit()
 
+    # save photo with user id as filename (1.jpg)
+    
     # Redirect user to landing page
     return redirect(url_for("traveler_view"))
 
