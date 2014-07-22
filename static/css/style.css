@@ -8,10 +8,10 @@ body,
     padding: 0px
 }
 
-#infoPanel {
-    float: left;
-    margin-left: 10px;
+#currentLocation {
+	width: 200px;
 }
-#infoPanel div {
-    margin-bottom: 5px;
+
+#destination {
+	width: 200px;
 }
