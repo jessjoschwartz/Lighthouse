@@ -2,6 +2,7 @@ from flask import Flask, session, request, flash, redirect, url_for, render_temp
 from model import session as db_session, User
 import model
 import os
+import pdb
 
 app = Flask(__name__)
 SECRET_KEY = "fish"
@@ -62,7 +63,7 @@ def register_post():
     db_session.commit()
 
     # save photo with user id as filename (1.jpg)
-    
+
     # Redirect user to landing page
     return redirect(url_for("traveler_view"))
 
@@ -76,6 +77,31 @@ def logout():
 @app.route("/traveler_view", methods=["GET"])
 def traveler_view():
     return render_template("traveler_view.html")
+
+    trip = Trip()
+    trip.traveler_id = request.form.get('traveler_id')
+    trip.traveler_current_lat = request.form.get('traveler_current_lat')
+    trip.traveler_current_long = request.form.get('traveler_current_long')
+
+    # Add the user object to the database
+    db_session.add(trip)
+
+    # Save the user in the database
+    db_session.commit()
+
+    # Confirm
+    return redirect(url_for("traveler_view"))
+
+@app.route("/traveler_view", methods=["POST"])
+def traveler_view_post():
+    pdb.set_trace()
+    print request.data()
+    print request.form()
+
+### Guide view
+@app.route("/guide_view", methods=["GET"])
+def guide_view():
+    return render_template("guide_view.html")
 
 ## End class declarations
 

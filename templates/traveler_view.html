@@ -15,9 +15,9 @@
 <body>
     <div id="map-canvas"></div>
     <div id="controls" class="enterLocation">
-        <form id="locations">
-            <input type="text" placeholder="Current Location" id="currentLocation">
-            <input type="text" placeholder="Destination" id="destination">
+        <form id="locations" data-latStart="123", data-latEnd="3142", data-longStart="4532", data-longEnd="3245">
+            <input type="text" name="current-location" placeholder="Current Location" id="currentLocation">
+            <input type="text" name="destination" placeholder="Destination" id="destination">
             <input type="submit" value="Request Voyage">
             <div id="mapCanvas"></div>
 

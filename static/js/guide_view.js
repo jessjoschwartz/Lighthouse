@@ -61,34 +61,8 @@ $( document ).ready(function() {
             });
         }
 
-
         function updateMarkerAddress(str) {
-            $("#locations #currentLocation").val(str).attr({
-                "data-latitude": "latitude",
-                "data-longitute": "longitude"
-            });
-        }
-
-        function serialize() {
-            var form = $('form');
-            var dataarr = new Array();
-            for(var i in form.data()) {
-                var subarr = new Array();
-                subarr['name'] = i;
-                subarr['value'] = form.data()[i];
-                dataarr.push(subarr);
-            }
-            return $.param(form.serializeArray().concat(dataarr));
-        }
-
-        function postRoute() {
-            var data = serialize();
-            $.ajax({
-              type: "POST",
-              url: "/traveler_view",
-              data: data,
-              // success: success,
-            });
+            $("#locations #currentLocation").val(str);
         }
 
         function initialize() {
@@ -156,10 +130,6 @@ $( document ).ready(function() {
             var infowindow = new google.maps.InfoWindow(options);
             map.setCenter(options.position);
         }
-        
-$("input[type=submit]").click(function (){
-    postRoute();
-})
 
 google.maps.event.addDomListener(window, 'load', initialize);
 });

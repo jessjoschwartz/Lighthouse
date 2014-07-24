@@ -1,6 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, ForeignKey
-from sqlalchemy import Column, Integer, String, DateTime, Date
+from sqlalchemy import Column, Integer, String, DateTime, Date, Float
 from sqlalchemy.orm import sessionmaker, scoped_session, relationship, backref
 
 import os
@@ -22,11 +22,41 @@ class User(Base):
 
     id = Column(Integer, primary_key = True)
     email = Column(String(64), nullable=True, unique=True)
-    first_name = Column(String(64), nullable=True) 
-    last_name = Column(String(64), nullable=True) 
+    first_name = Column(String(64), nullable=False) 
+    last_name = Column(String(64), nullable=False) 
+    password = Column(String(64), nullable=False)  
+    role = Column(Integer, nullable = False)
     # photo = Column(String(64), nullable=True) make it with blob
-    password = Column(String(64), nullable=True)  
-    role = Column(Integer, nullable = True)
+
+class Trip(Base):
+    __tablename__ = "trips"
+    
+    id = Column(Integer, primary_key = True)
+    traveler_id = Column(Integer, ForeignKey('users.id'))
+    guide_id = Column(Integer, ForeignKey('users.id'))
+    traveler_current_lat = Column(Float(20), nullable=False)
+    traveler_current_long = Column(Float(20), nullable=False)
+    traveler_destination_lat = Column(Float(20), nullable=False)
+    traveler_destination_long = Column(Float(20), nullable=False)
+    guide_current_location_lat = Column(Float(20), nullable=False)
+    guide_current_location_long = Column(Float(20), nullable=False)
+
+    traveler_id = relationship("User", backref="trips")
+    guide_id = relationship("User", backref="trips")
+
+class Status(Base):
+    __tablename__ = "statuses"
+
+    id = Column(Integer, primary_key = True)
+    trip_id = Column(Integer, ForeignKey('trips.id'))
+    ###how to do datetime?
+    ###how to set this up to deal with status updates?
+    datetime_requested = Column(DateTime, nullable=True)
+    datetime_accepted = Column(DateTime, nullable=True)
+    datetime_commenced = Column(DateTime, nullable=True)
+    datetime_completed = Column(DateTime, nullable=True)
+
+    trip_id = relationship("Trip", backref="statuses")
 
 ### End class declarations
 
