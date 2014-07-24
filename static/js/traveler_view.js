@@ -3,20 +3,23 @@ $( document ).ready(function() {
          // prompted by your browser. If you see a blank space instead of the map, this
          // is probably because you have denied permission for location sharing.
 
+         // Global variables
         var map, originMarker, destinationMarker;
         var geocoder = new google.maps.Geocoder();
-        //new variables
+
+        //Set up Google Maps JavaScript API v3 Directions Service
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer({
             suppressMarkers: true
         }); 
 
+        // Set up Google Maps JavaScript API v3 Place Autocomplete 
         function autoCompleteSetup() {
             var autoSrc = new google.maps.places.Autocomplete($("#locations #currentLocation")[0]);
             var autoDest = new google.maps.places.Autocomplete($("#locations #destination")[0]);
         } // autoCompleteSetup Ends
 
-        // 1) Handle a click on the request voyage button
+        // Handle a click on the request voyage button
         $('#locations').on('submit', function(e) {
             e.preventDefault();
             var origin= originMarker.getPosition();
@@ -31,6 +34,7 @@ $( document ).ready(function() {
                 travelMode: google.maps.DirectionsTravelMode.WALKING
             };      
             
+            // Runs directions service, shows line on map based on current location and destination
             directionsService.route(request, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
 
@@ -49,6 +53,7 @@ $( document ).ready(function() {
             });
         });
 
+        // Geocodes latlng
         function geocodePosition(pos) {
             geocoder.geocode({
                 latLng: pos
@@ -61,7 +66,7 @@ $( document ).ready(function() {
             });
         }
 
-
+        //Establishes attributes for marker
         function updateMarkerAddress(str) {
             $("#locations #currentLocation").val(str).attr({
                 "data-latitude": "latitude",
@@ -69,6 +74,7 @@ $( document ).ready(function() {
             });
         }
 
+        // Makes latitutes and longitutes storable for DB
         function serialize() {
             var form = $('form');
             var dataarr = new Array();
@@ -81,6 +87,7 @@ $( document ).ready(function() {
             return $.param(form.serializeArray().concat(dataarr));
         }
 
+        // Posts data 
         function postRoute() {
             var data = serialize();
             $.ajax({
@@ -91,6 +98,7 @@ $( document ).ready(function() {
             });
         }
 
+        // Defines map's properties and markers 
         function initialize() {
             var mapOptions = {
                 zoom: 16
@@ -112,13 +120,13 @@ $( document ).ready(function() {
                         title: 'You are here!.'
                     });
 
+                    // Sets center of map to detected geolocation.    
                     map.setCenter(latLng);
 
                     // Update current position info.
-                    // updateMarkerPosition(latLng);
                     geocodePosition(latLng);
 
-                    // Add dragging event listeners.
+                    // Add dragging event listener for markers.
                     google.maps.event.addListener(originMarker, 'dragstart', function () {
                         updateMarkerAddress('Dragging...');
                     });
@@ -140,6 +148,7 @@ $( document ).ready(function() {
 
         }
 
+        // Results if geolocation not supported
         function handleNoGeolocation(errorFlag) {
             if (errorFlag) {
                 var content = 'Error: The Geolocation service failed.';
@@ -156,10 +165,12 @@ $( document ).ready(function() {
             var infowindow = new google.maps.InfoWindow(options);
             map.setCenter(options.position);
         }
-        
+
+// Makes "Request Voyage" button functional
 $("input[type=submit]").click(function (){
     postRoute();
 })
 
+// Google Map appears
 google.maps.event.addDomListener(window, 'load', initialize);
 });

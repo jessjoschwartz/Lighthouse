@@ -78,10 +78,15 @@ def logout():
 def traveler_view():
     return render_template("traveler_view.html")
 
+@app.route("/traveler_view", methods=["POST"])
+def traveler_view_post():
+
     trip = Trip()
     trip.traveler_id = request.form.get('traveler_id')
-    trip.traveler_current_lat = request.form.get('traveler_current_lat')
-    trip.traveler_current_long = request.form.get('traveler_current_long')
+    trip.traveler_current_lat = request.form.get('latStart')
+    trip.traveler_current_long = request.form.get('longStart')
+    trip.traveler_destination_lat = request.form.get('latEnd')
+    trip.traveler_destination_long = request.form.get('longStart')
 
     # Add the user object to the database
     db_session.add(trip)
@@ -91,12 +96,6 @@ def traveler_view():
 
     # Confirm
     return redirect(url_for("traveler_view"))
-
-@app.route("/traveler_view", methods=["POST"])
-def traveler_view_post():
-    pdb.set_trace()
-    print request.data()
-    print request.form()
 
 ### Guide view
 @app.route("/guide_view", methods=["GET"])

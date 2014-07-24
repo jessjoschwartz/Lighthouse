@@ -49,8 +49,6 @@ class Status(Base):
 
     id = Column(Integer, primary_key = True)
     trip_id = Column(Integer, ForeignKey('trips.id'))
-    ###how to do datetime?
-    ###how to set this up to deal with status updates?
     datetime_requested = Column(DateTime, nullable=True)
     datetime_accepted = Column(DateTime, nullable=True)
     datetime_commenced = Column(DateTime, nullable=True)
