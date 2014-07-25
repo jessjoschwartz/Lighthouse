@@ -32,8 +32,8 @@ class Trip(Base):
     __tablename__ = "trips"
     
     id = Column(Integer, primary_key = True)
-    traveler_id = Column(Integer, ForeignKey('users.id'))
-    guide_id = Column(Integer, ForeignKey('users.id'))
+    # traveler_id = Column(Integer, ForeignKey('users.id'))
+    # guide_id = Column(Integer, ForeignKey('users.id'))
     traveler_current_lat = Column(Float(20), nullable=False)
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
@@ -41,20 +41,20 @@ class Trip(Base):
     guide_current_location_lat = Column(Float(20), nullable=False)
     guide_current_location_long = Column(Float(20), nullable=False)
 
-    traveler_id = relationship("User", backref="trips")
-    guide_id = relationship("User", backref="trips")
+    # traveler_id = relationship("User", backref="trips")
+    # guide_id = relationship("User", backref="trips")
 
-class Status(Base):
-    __tablename__ = "statuses"
+# class Status(Base):
+#     __tablename__ = "statuses"
 
-    id = Column(Integer, primary_key = True)
-    trip_id = Column(Integer, ForeignKey('trips.id'))
-    datetime_requested = Column(DateTime, nullable=True)
-    datetime_accepted = Column(DateTime, nullable=True)
-    datetime_commenced = Column(DateTime, nullable=True)
-    datetime_completed = Column(DateTime, nullable=True)
+#     id = Column(Integer, primary_key = True)
+#     trip_id = Column(Integer, ForeignKey('trips.id'))
+#     datetime_requested = Column(DateTime, nullable=True)
+#     datetime_accepted = Column(DateTime, nullable=True)
+#     datetime_commenced = Column(DateTime, nullable=True)
+#     datetime_completed = Column(DateTime, nullable=True)
 
-    trip_id = relationship("Trip", backref="statuses")
+#     trip_id = relationship("Trip", backref="statuses")
 
 ### End class declarations
 

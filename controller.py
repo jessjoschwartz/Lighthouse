@@ -1,5 +1,6 @@
 from flask import Flask, session, request, flash, redirect, url_for, render_template
-from model import session as db_session, User
+from model import User, Trip
+from model import session as db_session
 import model
 import os
 import pdb
@@ -7,6 +8,21 @@ import pdb
 app = Flask(__name__)
 SECRET_KEY = "fish"
 app.config.from_object(__name__)
+
+@app.before_request
+def is_logged_in():
+
+    session['is_login_required'] = is_login_required()
+
+    if not 'user_id' in session and is_login_required():
+        return redirect(url_for("user_login_get"))
+
+def is_login_required():
+    pages = ["/login", "/register", "/"]
+    if request.path in pages:
+        return False
+    else:
+        return True 
 
 ### Start page
 @app.route("/", methods=["GET"])
@@ -40,7 +56,14 @@ def register_get():
 
 @app.route("/register", methods=["POST"])
 def register_post():
-    print request.files["photoimg"]
+    print request.form.get('first_name')
+    print request.form.get('last_name')
+    print request.form.get('email')
+    print request.form.get('phone')
+    print request.form.get('password')
+    print request.form.get('role')
+
+    # print request.files["photoimg"]
 
     # Create the user object to store our data
     user = User()
@@ -51,10 +74,13 @@ def register_post():
     user.password = request.form.get('password')
     user.role = request.form.get('role')
 
+    print user.role
+
     existing = db_session.query(User).filter_by(email=user.email).first()
     if existing:
         flash("Email already in use", "error")
         return redirect(url_for("user_login_get"))
+
 
     # Add the user object to the database
     db_session.add(user)
@@ -62,16 +88,22 @@ def register_post():
     # Save the user in the database
     db_session.commit()
 
-    # save photo with user id as filename (1.jpg)
+    print "User id: " + user.id
+    # session['user_id'] = user.id
+    
+    # # save photo with user id as filename (1.jpg)
 
-    # Redirect user to landing page
+    #Log in user
+
+
+    # # Redirect user to landing page
     return redirect(url_for("traveler_view"))
 
 ### Logout
 @app.route("/logout")
 def logout():
     del session['user_id']
-    return redirect(url_for("login"))
+    return redirect(url_for("user_login_get"))
 
 ### Traveler view
 @app.route("/traveler_view", methods=["GET"])
@@ -104,17 +136,6 @@ def guide_view():
 
 ## End class declarations
 
-def create_db():
-    Base.metadata.create_all(engine)
-
-def connect(db_uri="sqlite:///users.db"):
-    global engine
-    global session
-    engine = create_engine(db_uri, echo=False) 
-    session = scoped_session(sessionmaker(bind=engine,
-                             autocommit = False,
-                             autoflush = False))
-
 def main():
     """In case we need this for something"""
     pass    
@@ -122,6 +143,6 @@ def main():
 if __name__ == "__main__":
     db_uri = app.config.get('SQLALCHEMY_DATABASE_URI')
     if not db_uri:
-        db_uri = "sqlite:///all_users.db"
+        db_uri = "sqlite:///users.db"
     model.connect(db_uri)
     app.run(debug=True, port=int(os.environ.get("PORT", 5000)), host="0.0.0.0")

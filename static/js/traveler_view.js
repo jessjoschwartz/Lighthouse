@@ -90,6 +90,7 @@ $( document ).ready(function() {
         // Posts data 
         function postRoute() {
             var data = serialize();
+            console.log("this is the serialized data" + data)
             $.ajax({
               type: "POST",
               url: "/traveler_view",

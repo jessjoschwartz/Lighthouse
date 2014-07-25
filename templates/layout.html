@@ -1,8 +1,19 @@
 <html>
     <head>
         <title>lighthouse</title>
+        {% block head %}
+        {% endblock %}
     </head>
     <body>
+        <header>
+        {% if not 'user_id' in session %}
+            {% if session['is_login_required'] %}
+            <a href="/login">Login</a>
+            {% endif %}
+        {% else %}
+            <a href="/logout">Logout</a>
+        {% endif %}
+        </header>
         <div id="message-flash">
         {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
@@ -18,9 +29,3 @@
         {% endblock %}
     </body>
 </html>
-
-      var marker = new google.maps.Marker({
-        map: map,
-        position: pos,
-        draggable:true,
-        title: "You are here!"

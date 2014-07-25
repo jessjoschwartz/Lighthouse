@@ -1,8 +1,20 @@
-
+<!-- 
 <!DOCTYPE html>
-<html>
+<html> -->
+{% extends "layout.html" %}
 
-<head>
+{% block head %}
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<link type = "text/css" rel="stylesheet" href="/static/css/style.css">
+<script type="text/javascript" src="../static/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript" src="../static/js/traveler_view.js"></script>
+{% endblock %}
+
+{% block body %} 
+
+<!-- <head>
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -10,12 +22,12 @@
     <script type="text/javascript" src="../static/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
     <script type="text/javascript" src="../static/js/traveler_view.js"></script>
-</head>
+</head> -->
 
-<body>
-    <div id="map-canvas"></div>
+<!-- <body>
+ -->    <div id="map-canvas"></div>
     <div id="controls" class="enterLocation">
-        <form id="locations" data-latStart="123", data-latEnd="3142", data-longStart="4532", data-longEnd="3245">
+        <form id="locations" data-latStart="37.7886663", data-latEnd="37.763046", data-longStart="-122.41146249999997", data-longEnd="-122.45258899999999">
             <input type="text" name="current-location" placeholder="Current Location" id="currentLocation">
             <input type="text" name="destination" placeholder="Destination" id="destination">
             <input type="submit" value="Request Voyage">
@@ -23,6 +35,7 @@
 
         </form>
         </div>
-</body>
-
-</html>
+<!-- </body>
+ -->
+<!-- </html>
+ -->{% endblock %}
