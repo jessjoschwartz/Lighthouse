@@ -66,38 +66,43 @@ $( document ).ready(function() {
             });
         }
 
-        //Establishes attributes for marker
         function updateMarkerAddress(str) {
-            $("#locations #currentLocation").val(str).attr({
-                "data-latitude": "latitude",
-                "data-longitute": "longitude"
-            });
-        }
+            document.getElementById('address').innerHTML = str;
+            $("#locations #currentLocation").val(str);
+          }
 
-        // Makes latitutes and longitutes storable for DB
-        function serialize() {
-            var form = $('form');
-            var dataarr = new Array();
-            for(var i in form.data()) {
-                var subarr = new Array();
-                subarr['name'] = i;
-                subarr['value'] = form.data()[i];
-                dataarr.push(subarr);
-            }
-            return $.param(form.serializeArray().concat(dataarr));
-        }
+        // //Establishes attributes for marker
+        // function updateMarkerAddress(str) {
+        //     $("#locations #currentLocation").val(str).attr({
+        //         "data-latitude": "latitude",
+        //         "data-longitute": "longitude"
+        //     });
+        // }
 
-        // Posts data 
-        function postRoute() {
-            var data = serialize();
-            console.log("this is the serialized data" + data)
-            $.ajax({
-              type: "POST",
-              url: "/traveler_view",
-              data: data,
-              // success: success,
-            });
-        }
+        // // Makes latitutes and longitutes storable for DB
+        // function serialize() {
+        //     var form = $('form');
+        //     var dataarr = new Array();
+        //     for(var i in form.data()) {
+        //         var subarr = new Array();
+        //         subarr['name'] = i;
+        //         subarr['value'] = form.data()[i];
+        //         dataarr.push(subarr);
+        //     }
+        //     return $.param(form.serializeArray().concat(dataarr));
+        // }
+
+        // // Posts data 
+        // function postRoute() {
+        //     var data = serialize();
+        //     console.log("this is the serialized data" + data)
+        //     $.ajax({
+        //       type: "POST",
+        //       url: "/traveler_view",
+        //       data: data,
+        //       // success: success,
+        //     });
+        // }
 
         // Defines map's properties and markers 
         function initialize() {
@@ -134,6 +139,8 @@ $( document ).ready(function() {
 
                     google.maps.event.addListener(originMarker, 'dragend', function () {
                         geocodePosition(originMarker.getPosition());
+                        // LatLong of first marker
+                        console.log(originMarker.getPosition())
                     });
 
                 }, function () {
