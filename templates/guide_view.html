@@ -1,26 +1,31 @@
+<!-- 
 <!DOCTYPE html>
-<html>
+<html> -->
+{% extends "layout.html" %}
 
-<head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <link type = "text/css" rel="stylesheet" href="/static/css/style.css">
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
-    <script type="text/javascript" src="../static/js/guide_view.js"></script>
-</head>
+{% block head %}
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<link type = "text/css" rel="stylesheet" href="/static/css/style.css">
+<script type="text/javascript" src="../static/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript" src="../static/js/guide_view.js"></script>
+{% endblock %}
 
-<body>
-    <div id="map-canvas"></div>
+{% block body %} 
+<!-- <body>
+ -->    <div id="map-canvas"></div>
     <div id="controls" class="enterLocation">
-        <form id="locations">
+        <form id="locations" method='post'>
             <input type="text" placeholder="Current Location" id="currentLocation">
             <input type="submit" value="Ahoy, I'm ready to walk!">
+            <input type="hidden" id="guide_current_lat" name="guide_current_lat">
+            <input type="hidden" id="guide_current_long" name="guide_current_long">
             <div id="mapCanvas"></div>
 
         </form>
         </div>
-</body>
-
-</html>
+<!-- </body>
+ -->
+<!-- </html>
+ -->{% endblock %}

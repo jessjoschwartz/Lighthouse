@@ -56,14 +56,6 @@ def register_get():
 
 @app.route("/register", methods=["POST"])
 def register_post():
-    print request.form.get('first_name')
-    print request.form.get('last_name')
-    print request.form.get('email')
-    print request.form.get('phone')
-    print request.form.get('password')
-    print request.form.get('role')
-
-    # print request.files["photoimg"]
 
     # Create the user object to store our data
     user = User()
@@ -73,8 +65,6 @@ def register_post():
     user.phone = request.form.get('phone')
     user.password = request.form.get('password')
     user.role = request.form.get('role')
-
-    print user.role
 
     existing = db_session.query(User).filter_by(email=user.email).first()
     if existing:
@@ -88,9 +78,8 @@ def register_post():
     # Save the user in the database
     db_session.commit()
 
-    print "User id: " + user.id
     # session['user_id'] = user.id
-    
+
     # # save photo with user id as filename (1.jpg)
 
     #Log in user
@@ -114,11 +103,11 @@ def traveler_view():
 def traveler_view_post():
 
     trip = Trip()
-    trip.traveler_id = request.form.get('traveler_id')
-    trip.traveler_current_lat = request.form.get('latStart')
-    trip.traveler_current_long = request.form.get('longStart')
-    trip.traveler_destination_lat = request.form.get('latEnd')
-    trip.traveler_destination_long = request.form.get('longStart')
+    trip.traveler_id = session['user_id']
+    trip.traveler_current_lat = request.form.get('traveler_current_lat')
+    trip.traveler_current_long = request.form.get('traveler_current_long')
+    trip.traveler_destination_lat = request.form.get('traveler_destination_lat')
+    trip.traveler_destination_long = request.form.get('traveler_destination_long')
 
     # Add the user object to the database
     db_session.add(trip)
@@ -127,12 +116,32 @@ def traveler_view_post():
     db_session.commit()
 
     # Confirm
-    return redirect(url_for("traveler_view"))
+    return 'Success'
 
 ### Guide view
 @app.route("/guide_view", methods=["GET"])
 def guide_view():
     return render_template("guide_view.html")
+
+@app.route("/guide_view", methods=["POST"])
+def guide_view_post():
+
+    trip = Trip()
+    trip.guide_id = session['user_id']
+    trip.guide_current_lat = request.form.get('guide_current_lat')
+    trip.guide_current_long = request.form.get('guide_current_long')
+    print trip.guide_current_lat
+
+    # # Add the user object to the database
+    # db_session.add(trip)
+
+    # # Save the user in the database
+    # db_session.commit()
+
+    # Confirm
+    return 'Success'
+
+# @app.route("")
 
 ## End class declarations
 

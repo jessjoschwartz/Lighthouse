@@ -32,17 +32,17 @@ class Trip(Base):
     __tablename__ = "trips"
     
     id = Column(Integer, primary_key = True)
-    # traveler_id = Column(Integer, ForeignKey('users.id'))
-    # guide_id = Column(Integer, ForeignKey('users.id'))
+    traveler_id = Column(Integer, ForeignKey('users.id'))
+    guide_id = Column(Integer, ForeignKey('users.id'))
     traveler_current_lat = Column(Float(20), nullable=False)
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
     traveler_destination_long = Column(Float(20), nullable=False)
-    guide_current_location_lat = Column(Float(20), nullable=False)
-    guide_current_location_long = Column(Float(20), nullable=False)
+    guide_current_location_lat = Column(Float(20), nullable=True)
+    guide_current_location_long = Column(Float(20), nullable=True)
 
-    # traveler_id = relationship("User", backref="trips")
-    # guide_id = relationship("User", backref="trips")
+    traveler = relationship("User", foreign_keys=[traveler_id]) 
+    guide = relationship("User", foreign_keys=[guide_id]) 
 
 # class Status(Base):
 #     __tablename__ = "statuses"
