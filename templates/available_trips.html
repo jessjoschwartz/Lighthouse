@@ -7,7 +7,7 @@
 
 <h2>Available Trips</h2>
 
-<div>
+<!-- <div>
     {% for trip in trip_list %}
    	{{ trip.traveler.first_name }}
    	{{ trip.traveler_current_lat }},
@@ -18,10 +18,48 @@
         <h2><a href="/trip/{traveler_id}"></a></h2>
     </div>
     {% endfor %}
-</div>
-{% endblock %}
+</div> -->
 
+<style>
+table,th,td
+{
+border:1px solid black;
+border-collapse:collapse;
+}
+th,td
+{
+padding:5px;
+}
+</style>
+</head>
+<body>
+
+<table style="width:300px">
+<tr>
+  <th>Firstname</th>
+  <th>Current Location</th>		
+  <th>Destination</th>
+</tr>
+<tr>
+	{% for trip in trip_list %}
+  <td>{{ trip.traveler.first_name }}</td>
+  <td>{{ trip.traveler_current_lat }}, {{ trip.traveler_current_long }}</td>		
+  <td>{{ trip.traveler_destination_lat }}, {{ trip.traveler_destination_long }}</td>
+</tr>
+  {% endfor %}
+
+{% endblock %}
+<script>
+$( "tr" ).click(function() {
+  $( this ).slideUp();
+});
+</script>
 <!-- </body>
  -->
 <!-- </html> 
  -->
+
+
+
+
+
