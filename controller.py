@@ -151,10 +151,13 @@ def available_trips():
     return render_template("available_trips.html",
                            trip_list = trips)
 
+@app.route("/test", methods=["POST"])
+def test():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD</p>"
+
 @app.route("/guide_view_accept", methods=["GET"])
 def guide_view_accept():
     return render_template("guide_view_accept.html")
-
 
 ## End class declarations
 

@@ -17,12 +17,43 @@
  -->    <div id="map-canvas"></div>
     <div id="controls" class="enterLocation">
         <form id="locations" method='post'>
-            <input type="submit" value="Accept this voyage">
-            <input type="hidden" id="guide_current_lat" name="guide_current_lat">
+<!--             <input type="submit" value="Accept this voyage">
+ -->        <input type="hidden" id="guide_current_lat" name="guide_current_lat">
             <input type="hidden" id="guide_current_long" name="guide_current_long">
             <div id="mapCanvas"></div>
         </form>
         </div>
+<script>
+$(document).ready(function(){
+  $("#accept_voyage").click(function(){
+   //alert("Accept voyage.");
+   $.ajax({
+   	"url":"/test",
+   	"type": "POST"
+   }).done(function(res)
+   {
+   	//This runs when the call is successful
+   	console.log("OK", res);
+   	$('#under_map').html(res);
+   	$('#new-p').click(function()
+   	{
+   		console.log("clicked on the new P");
+   	});
+   }).always(function(res)
+   {
+   	//This runs ALWAYS whether it fails or not
+   	console.log("ALWAYS", res);
+   }).fail(function(res)
+   {
+   	//This runs when the call fails as in 404 or Internal server error 500
+   	console.log("BOOO", res);
+   });
+  });
+});
+</script>
+<div id="under_map">
+<p id="accept_voyage">Accept this voyage</p>
+</div>
 <!-- </body>
  -->
 <!-- </html>
