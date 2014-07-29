@@ -22,27 +22,32 @@ class User(Base):
 
     id = Column(Integer, primary_key = True)
     email = Column(String(64), nullable=True, unique=True)
-    first_name = Column(String(64), nullable=False) 
+    phone = Column(String(64), nullable=False)
+    first_name = Column(String(64), nullable=False)  
     last_name = Column(String(64), nullable=False) 
     password = Column(String(64), nullable=False)  
     role = Column(Integer, nullable = False)
     # photo = Column(String(64), nullable=True) make it with blob
+
 
 class Trip(Base):
     __tablename__ = "trips"
     
     id = Column(Integer, primary_key = True)
     traveler_id = Column(Integer, ForeignKey('users.id'))
-    guide_id = Column(Integer, ForeignKey('users.id'))
+    # guide_id = Column(Integer, ForeignKey('User.id'))
     traveler_current_lat = Column(Float(20), nullable=False)
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
     traveler_destination_long = Column(Float(20), nullable=False)
-    guide_current_location_lat = Column(Float(20), nullable=True)
-    guide_current_location_long = Column(Float(20), nullable=True)
+    # guide_current_location_lat = Column(Float(20), nullable=True)
+    # guide_current_location_long = Column(Float(20), nullable=True)
 
-    traveler = relationship("User", foreign_keys=[traveler_id]) 
-    guide = relationship("User", foreign_keys=[guide_id]) 
+    # traveler = relationship("User", foreign_keys='Trip.traveler_id') 
+    # guide = relationship("User", foreign_keys=[guide_id]) 
+
+    traveler = relationship("User", backref="trips") 
+    # guide = relationship("User", backref="trips") 
 
 # class Status(Base):
 #     __tablename__ = "statuses"
@@ -57,6 +62,17 @@ class Trip(Base):
 #     trip_id = relationship("Trip", backref="statuses")
 
 ### End class declarations
+
+class Trips(object):
+    pass
+
+def get_trips():
+    all_users = session.query(User).all()
+    all_trips = session.query(Trip).all()
+    for t in all_trips:
+        print t.traveler
+
+    return all_trips
 
 def create_db():
     Base.metadata.create_all(engine)

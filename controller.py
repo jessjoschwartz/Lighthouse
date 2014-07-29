@@ -139,9 +139,18 @@ def guide_view_post():
     # db_session.commit()
 
     # Confirm
-    return 'Success'
+    # return 'Success'
+    return redirect(url_for("available_trips"))
 
-# @app.route("")
+@app.route("/available_trips", methods=["GET"])
+def available_trips():
+    # users = model.get_trips()
+    # print users
+    trips = model.get_trips()
+    print trips
+    return render_template("available_trips.html",
+                           trip_list = trips)
+
 
 ## End class declarations
 
