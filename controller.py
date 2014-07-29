@@ -151,9 +151,42 @@ def available_trips():
     return render_template("available_trips.html",
                            trip_list = trips)
 
-@app.route("/test", methods=["POST"])
-def test():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD</p>"
+@app.route("/accept_voyage", methods=["POST"])
+def accept_voyage():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 1</p>"
+
+@app.route("/cancel_voyage", methods=["POST"])
+def cancel_voyage():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 2</p>"
+
+@app.route("/commence_voyage", methods=["POST"])
+def commence_voyage():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 3</p>"
+
+@app.route("/complete_voyage", methods=["POST"])
+def complete_voyage():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+
+@app.route("/voyage_confirmed", methods=["POST"])
+def voyage_confirmed():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+
+@app.route("/voyage_commenced", methods=["POST"])
+def voyage_commenced():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+
+@app.route("/voyage_complete", methods=["POST"])
+def voyage_complete():
+    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+
+
+
+
+
+
+
+
+
 
 @app.route("/guide_view_accept", methods=["GET"])
 def guide_view_accept():
