@@ -26,20 +26,16 @@
 <script>
 //Accept voyage button
 $(document).ready(function(){
-  $("#accept_voyage").click(function(){
-   //alert("Accept voyage.");
+  $("#accept_voyage").click(function(){ //current page
    $.ajax({
-   	"url":"/accept_voyage",
+   	"url":"/commence_voyage", //next page
    	"type": "POST"
    }).done(function(res)
    {
    	//This runs when the call is successful
    	console.log("OK", res);
    	$('#under_map').html(res);
-   	$('#new-p').click(function()
-   	{
-   		console.log("clicked on the new P");
-   	});
+   	setupCommenceVoyage();
    }).always(function(res)
    {
    	//This runs ALWAYS whether it fails or not
@@ -52,22 +48,18 @@ $(document).ready(function(){
   });
 });
 
-//Cancel voyage button
-$(document).ready(function(){
-  $("#cancel_voyage").click(function(){
-   //alert("Accept voyage.");
+function setupCommenceVoyage() {
+	$("#commence_voyage").click(function(){ //current page
+   console.log("clicked on the new P");
    $.ajax({
-   	"url":"/cancel_voyage",
+   	"url":"/complete_voyage", //next page
    	"type": "POST"
    }).done(function(res)
    {
    	//This runs when the call is successful
    	console.log("OK", res);
    	$('#under_map').html(res);
-   	$('#new-p').click(function()
-   	{
-   		console.log("clicked on the new P");
-   	});
+   	setupCompleteVoyage();
    }).always(function(res)
    {
    	//This runs ALWAYS whether it fails or not
@@ -78,21 +70,20 @@ $(document).ready(function(){
    	console.log("BOOO", res);
    });
   });
-});
+}
 
-//Commence voyage button
-$(document).ready(function(){
-  $("#commence_voyage").click(function(){
-   //alert("Accept voyage.");
+function setupCompleteVoyage() {
+	$("#complete_voyage").click(function(){ //current page
+	console.log("clicked on the new P");
    $.ajax({
-   	"url":"/commence_voyage",
+   	"url":"/rate_your_traveler", //next page
    	"type": "POST"
    }).done(function(res)
    {
    	//This runs when the call is successful
    	console.log("OK", res);
    	$('#under_map').html(res);
-   	$('#new-p').click(function()
+   	$('#rate_your_traveler').click(function() //next page
    	{
    		console.log("clicked on the new P");
    	});
@@ -105,127 +96,49 @@ $(document).ready(function(){
    	//This runs when the call fails as in 404 or Internal server error 500
    	console.log("BOOO", res);
    });
-  });
-});
+  });	
+}
 
-//Complete voyage button
-$(document).ready(function(){
-  $("#complete_voyage").click(function(){
-   //alert("Accept voyage.");
-   $.ajax({
-   	"url":"/complete_voyage",
-   	"type": "POST"
-   }).done(function(res)
-   {
-   	//This runs when the call is successful
-   	console.log("OK", res);
-   	$('#under_map').html(res);
-   	$('#new-p').click(function()
-   	{
-   		console.log("clicked on the new P");
-   	});
-   }).always(function(res)
-   {
-   	//This runs ALWAYS whether it fails or not
-   	console.log("ALWAYS", res);
-   }).fail(function(res)
-   {
-   	//This runs when the call fails as in 404 or Internal server error 500
-   	console.log("BOOO", res);
-   });
-  });
-});
+// //Commence voyage button
+// $(document).ready(function(){
+  
+// });
 
-//Voyage confirmed icon
-$(document).ready(function(){
-  $("#voyage_confirmed").click(function(){
-   //alert("Accept voyage.");
-   $.ajax({
-   	"url":"/voyage_confirmed",
-   	"type": "POST"
-   }).done(function(res)
-   {
-   	//This runs when the call is successful
-   	console.log("OK", res);
-   	$('#under_map').html(res);
-   	{
-   		console.log("clicked on the new P");
-   	});
-   }).always(function(res)
-   {
-   	//This runs ALWAYS whether it fails or not
-   	console.log("ALWAYS", res);
-   }).fail(function(res)
-   {
-   	//This runs when the call fails as in 404 or Internal server error 500
-   	console.log("BOOO", res);
-   });
-  });
-});
+// //Complete voyage button
+// $(document).ready(function(){
+  
+// });
 
-//Voyage commenced icon
-$(document).ready(function(){
-  $("#voyage_commenced").click(function(){
-   //alert("Accept voyage.");
-   $.ajax({
-   	"url":"/voyage_commenced",
-   	"type": "POST"
-   }).done(function(res)
-   {
-   	//This runs when the call is successful
-   	console.log("OK", res);
-   	$('#under_map').html(res);
-   	{
-   		console.log("clicked on the new P");
-   	});
-   }).always(function(res)
-   {
-   	//This runs ALWAYS whether it fails or not
-   	console.log("ALWAYS", res);
-   }).fail(function(res)
-   {
-   	//This runs when the call fails as in 404 or Internal server error 500
-   	console.log("BOOO", res);
-   });
-  });
-});
-
-//Voyage complete icon
-$(document).ready(function(){
-  $("#voyage_complete").click(function(){
-   //alert("Accept voyage.");
-   $.ajax({
-   	"url":"/voyage_complete",
-   	"type": "POST"
-   }).done(function(res)
-   {
-   	//This runs when the call is successful
-   	console.log("OK", res);
-   	$('#under_map').html(res);
-   	{
-   		console.log("clicked on the new P");
-   	});
-   }).always(function(res)
-   {
-   	//This runs ALWAYS whether it fails or not
-   	console.log("ALWAYS", res);
-   }).fail(function(res)
-   {
-   	//This runs when the call fails as in 404 or Internal server error 500
-   	console.log("BOOO", res);
-   });
-  });
-});
+// //Cancel voyage button
+// $(document).ready(function(){
+//   $("#cancel_voyage").click(function(){
+//    $.ajax({
+//    	"url":"/cancel_voyage",
+//    	"type": "POST"
+//    }).done(function(res)
+//    {
+//    	//This runs when the call is successful
+//    	console.log("OK", res);
+//    	$('#under_map').html(res);
+//    	$('#new-p').click(function()
+//    	{
+//    		console.log("clicked on the new P");
+//    	});
+//    }).always(function(res)
+//    {
+//    	//This runs ALWAYS whether it fails or not
+//    	console.log("ALWAYS", res);
+//    }).fail(function(res)
+//    {
+//    	//This runs when the call fails as in 404 or Internal server error 500
+//    	console.log("BOOO", res);
+//    });
+//   });
+// });
 
 </script>
 <div id="under_map">
-<p id="accept_voyage">Accept this voyage</p>
-<p id="cancel_voyage">Cancel</p=>
-<p id="commence_voyage">Commence voyage</p=>
-<p id="complete_voyage">Complete voyage</p=>
-<p id="voyage_confirmed">Voyage confirmed</p=>
-<p id="voyage_commenced">Voyage commenced</p=>
-<p id="voyage_complete">Voyage complete</p=>
+<p id="accept_voyage">Accept voyage</p>
 </div>
 <!-- </body>
  -->

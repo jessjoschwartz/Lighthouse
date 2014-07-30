@@ -151,33 +151,37 @@ def available_trips():
     return render_template("available_trips.html",
                            trip_list = trips)
 
-@app.route("/accept_voyage", methods=["POST"])
-def accept_voyage():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 1</p>"
+# @app.route("/accept_voyage", methods=["POST"])
+# def accept_voyage():
+#     return render_template("commence_voyage.html")
 
-@app.route("/cancel_voyage", methods=["POST"])
-def cancel_voyage():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 2</p>"
+# @app.route("/cancel_voyage", methods=["POST"])
+# def cancel_voyage():
+#     return render_template("commence_voyage.html")
 
 @app.route("/commence_voyage", methods=["POST"])
 def commence_voyage():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 3</p>"
+    return render_template("commence_voyage.html")
 
 @app.route("/complete_voyage", methods=["POST"])
 def complete_voyage():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+    return render_template("complete_voyage.html")
 
-@app.route("/voyage_confirmed", methods=["POST"])
-def voyage_confirmed():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+@app.route("/rate_your_traveler", methods=["GET"])
+def rate_your_traveler():
+    return render_template("rate_your_traveler.html")
 
-@app.route("/voyage_commenced", methods=["POST"])
-def voyage_commenced():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+# @app.route("/voyage_confirmed", methods=["POST"])
+# def voyage_confirmed():
+#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
 
-@app.route("/voyage_complete", methods=["POST"])
-def voyage_complete():
-    return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+# @app.route("/voyage_commenced", methods=["POST"])
+# def voyage_commenced():
+#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
+
+# @app.route("/voyage_complete", methods=["POST"])
+# def voyage_complete():
+#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
 
 
 
