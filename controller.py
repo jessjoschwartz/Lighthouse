@@ -86,7 +86,7 @@ def register_post():
 
 
     # # Redirect user to landing page
-    return redirect(url_for("traveler_view"))
+    return redirect(url_for("traveler_view_request"))
 
 ### Logout
 @app.route("/logout")
@@ -95,12 +95,12 @@ def logout():
     return redirect(url_for("user_login_get"))
 
 ### Traveler view
-@app.route("/traveler_view", methods=["GET"])
-def traveler_view():
-    return render_template("traveler_view.html")
+@app.route("/traveler_view_request", methods=["GET"])
+def traveler_view_request():
+    return render_template("traveler_view_request.html")
 
-@app.route("/traveler_view", methods=["POST"])
-def traveler_view_post():
+@app.route("/traveler_view_request", methods=["POST"])
+def traveler_view_request_post():
 
     trip = Trip()
     trip.traveler_id = session['user_id']
@@ -117,14 +117,23 @@ def traveler_view_post():
 
     # Confirm
     return 'Success'
+    return redirect(url_for("traveler_view_trip"))
+
+@app.route("/traveler_view_trip", methods=["GET"])
+def traveler_view_trip():
+    return render_template("traveler_view_trip.html")
+
+@app.route("/traveler_status", methods=["GET"])
+def traveler_status():
+    return "commenced" 
 
 ### Guide view
-@app.route("/guide_view", methods=["GET"])
-def guide_view():
-    return render_template("guide_view.html")
+@app.route("/guide_view_ahoy", methods=["GET"])
+def guide_view_ahoy():
+    return render_template("guide_view_ahoy.html")
 
-@app.route("/guide_view", methods=["POST"])
-def guide_view_post():
+@app.route("/guide_view_ahoy", methods=["POST"])
+def guide_view_ahoy_post():
 
     trip = Trip()
     trip.guide_id = session['user_id']
@@ -140,15 +149,15 @@ def guide_view_post():
 
     # Confirm
     # return 'Success'
-    return redirect(url_for("available_trips"))
+    return redirect(url_for("guide_available_trips"))
 
-@app.route("/available_trips", methods=["GET"])
-def available_trips():
+@app.route("/guide_available_trips", methods=["GET"])
+def guide_available_trips():
     # users = model.get_trips()
     # print users
     trips = model.get_trips()
     print trips
-    return render_template("available_trips.html",
+    return render_template("guide_available_trips.html",
                            trip_list = trips)
 
 # @app.route("/accept_voyage", methods=["POST"])
@@ -159,17 +168,21 @@ def available_trips():
 # def cancel_voyage():
 #     return render_template("commence_voyage.html")
 
-@app.route("/commence_voyage", methods=["POST"])
-def commence_voyage():
-    return render_template("commence_voyage.html")
+@app.route("/guide_view_trip", methods=["GET"])
+def guide_view_accept():
+    return render_template("guide_view_trip.html")
 
-@app.route("/complete_voyage", methods=["POST"])
-def complete_voyage():
-    return render_template("complete_voyage.html")
+@app.route("/guide_commence_voyage", methods=["POST"])
+def guide_commence_voyage():
+    return render_template("guide_commence_voyage.html")
 
-@app.route("/rate_your_traveler", methods=["GET"])
-def rate_your_traveler():
-    return render_template("rate_your_traveler.html")
+@app.route("/guide_complete_voyage", methods=["POST"])
+def guide_complete_voyage():
+    return render_template("guide_complete_voyage.html")
+
+@app.route("/guide_rate_your_traveler", methods=["GET"])
+def guide_rate_your_traveler():
+    return render_template("guide_rate_your_traveler.html")
 
 # @app.route("/voyage_confirmed", methods=["POST"])
 # def voyage_confirmed():
@@ -183,18 +196,6 @@ def rate_your_traveler():
 # def voyage_complete():
 #     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
 
-
-
-
-
-
-
-
-
-
-@app.route("/guide_view_accept", methods=["GET"])
-def guide_view_accept():
-    return render_template("guide_view_accept.html")
 
 ## End class declarations
 
