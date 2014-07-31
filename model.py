@@ -27,15 +27,13 @@ class User(Base):
     last_name = Column(String(64), nullable=False) 
     password = Column(String(64), nullable=False)  
     role = Column(Integer, nullable = False)
-    # photo = Column(String(64), nullable=True) make it with blob
-
 
 class Trip(Base):
     __tablename__ = "trips"
     
     id = Column(Integer, primary_key = True)
     traveler_id = Column(Integer, ForeignKey('users.id'))
-    # guide_id = Column(Integer, ForeignKey('User.id'))
+    guide_id = Column(Integer, ForeignKey('User.id'))
     traveler_current_lat = Column(Float(20), nullable=False)
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
@@ -43,23 +41,28 @@ class Trip(Base):
     # guide_current_location_lat = Column(Float(20), nullable=True)
     # guide_current_location_long = Column(Float(20), nullable=True)
 
-    # traveler = relationship("User", foreign_keys='Trip.traveler_id') 
-    # guide = relationship("User", foreign_keys=[guide_id]) 
+    #traveler = relationship("users", foreign_keys='Trip.traveler_id') 
+    #guide = relationship("users", foreign_keys=['Trip.guide_id']) 
 
-    traveler = relationship("User", backref="trips") 
-    # guide = relationship("User", backref="trips") 
+    # traveler = relationship("User", backref="trips") 
+    # guide = relationship("User" , backref="trips") 
 
-# class Status(Base):
-#     __tablename__ = "statuses"
+    traveler_id = Column(Integer, ForeignKey("users.id"))
+    traveler = relationship("User", backref=backref("trips", uselist=False))
 
-#     id = Column(Integer, primary_key = True)
-#     trip_id = Column(Integer, ForeignKey('trips.id'))
-#     datetime_requested = Column(DateTime, nullable=True)
-#     datetime_accepted = Column(DateTime, nullable=True)
-#     datetime_commenced = Column(DateTime, nullable=True)
-#     datetime_completed = Column(DateTime, nullable=True)
+    guide_id = Column(Integer, ForeignKey("users.id"))
+    guide = relationship("User", backref=backref("trips", uselist=False))
 
-#     trip_id = relationship("Trip", backref="statuses")
+class Status(Base):
+    __tablename__ = "statuses"
+
+    id = Column(Integer, primary_key = True)
+    trip_id = Column(Integer, ForeignKey('trips.id'))
+    datetime_accepted = Column(DateTime, nullable=True)
+    datetime_commenced = Column(DateTime, nullable=True)
+    datetime_completed = Column(DateTime, nullable=True)
+
+    trip_id = relationship("Trip", backref="statuses")
 
 ### End class declarations
 

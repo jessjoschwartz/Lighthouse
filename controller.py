@@ -164,12 +164,8 @@ def guide_available_trips():
 # def accept_voyage():
 #     return render_template("commence_voyage.html")
 
-# @app.route("/cancel_voyage", methods=["POST"])
-# def cancel_voyage():
-#     return render_template("commence_voyage.html")
-
 @app.route("/guide_view_trip", methods=["GET"])
-def guide_view_accept():
+def guide_view_trip():
     return render_template("guide_view_trip.html")
 
 @app.route("/guide_commence_voyage", methods=["POST"])
@@ -183,18 +179,6 @@ def guide_complete_voyage():
 @app.route("/guide_rate_your_traveler", methods=["GET"])
 def guide_rate_your_traveler():
     return render_template("guide_rate_your_traveler.html")
-
-# @app.route("/voyage_confirmed", methods=["POST"])
-# def voyage_confirmed():
-#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
-
-# @app.route("/voyage_commenced", methods=["POST"])
-# def voyage_commenced():
-#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
-
-# @app.route("/voyage_complete", methods=["POST"])
-# def voyage_complete():
-#     return "<p style='color:red;font-size:72px;' id='new-p'>HELLO WORLD 4</p>"
 
 
 ## End class declarations

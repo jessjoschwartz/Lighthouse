@@ -24,10 +24,9 @@
 <script>
 function checkStatus(){
 	console.log("is this working");
-	
 	$.ajax({
-		"url":"/traveler_confirmation_status", //next page
-		"type": "GET" //change rest of these
+		"url":"/traveler_status", 
+		"type": "GET" 
 	}).done(function(res) {
 		//This runs when the call is successful
 		//if res = commenced
@@ -45,8 +44,6 @@ function checkStatus(){
 		console.log("BOOO", res);
    	});
 }
-
-//Voyage Pending Status
 $(document).ready(function(){
 	setTimeout(checkStatus,3000);
 });
