@@ -33,7 +33,7 @@ class Trip(Base):
     
     id = Column(Integer, primary_key = True)
     traveler_id = Column(Integer, ForeignKey('users.id'))
-    guide_id = Column(Integer, ForeignKey('User.id'))
+    guide_id = Column(Integer, ForeignKey('users.id'))
     traveler_current_lat = Column(Float(20), nullable=False)
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
@@ -41,17 +41,14 @@ class Trip(Base):
     # guide_current_location_lat = Column(Float(20), nullable=True)
     # guide_current_location_long = Column(Float(20), nullable=True)
 
-    #traveler = relationship("users", foreign_keys='Trip.traveler_id') 
-    #guide = relationship("users", foreign_keys=['Trip.guide_id']) 
+    traveler = relationship("User", foreign_keys=[traveler_id]) 
+    guide = relationship("User", foreign_keys=[guide_id]) 
 
     # traveler = relationship("User", backref="trips") 
     # guide = relationship("User" , backref="trips") 
 
-    traveler_id = Column(Integer, ForeignKey("users.id"))
-    traveler = relationship("User", backref=backref("trips", uselist=False))
-
-    guide_id = Column(Integer, ForeignKey("users.id"))
-    guide = relationship("User", backref=backref("trips", uselist=False))
+    # traveler = relationship("User", backref=backref("trips", order_by=id))
+    # guide = relationship("User", backref=backref("trips", order_by=id))
 
 class Status(Base):
     __tablename__ = "statuses"
@@ -62,7 +59,7 @@ class Status(Base):
     datetime_commenced = Column(DateTime, nullable=True)
     datetime_completed = Column(DateTime, nullable=True)
 
-    trip_id = relationship("Trip", backref="statuses")
+    trip = relationship("Trip", backref=backref("statuses"))
 
 ### End class declarations
 

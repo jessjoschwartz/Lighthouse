@@ -28,6 +28,17 @@ function checkStatus(){
 		"url":"/traveler_status", 
 		"type": "GET" 
 	}).done(function(res) {
+		if res = empty datetime_accepted {
+		    $('#pending').show();
+		} else if res = complete datetime_accepted {
+		    $('#confirmed').show();
+		    $$('#pending')[0].hide();
+		} else if res = complete datetime_commenced {
+		    $('#commenced').show();
+		    $$('#pending')[0].hide();
+		} else if res = complete datetime_completed {
+		    $('#traveler_rate_your_guide').load("/traveler_rate_your_guide.html");
+		}
 		//This runs when the call is successful
 		//if res = commenced
 			//then call next function and show that it's commenced
