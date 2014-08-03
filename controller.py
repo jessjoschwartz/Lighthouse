@@ -1,6 +1,7 @@
 from flask import Flask, session, request, flash, redirect, url_for, render_template
-from model import User, Trip
+from model import User, Trip, Status
 from model import session as db_session
+import datetime
 import model
 import os
 import pdb
@@ -46,7 +47,7 @@ def user_login_post():
         return redirect(url_for("user_login_get"))
 
     session['user_id'] = user.id
-    return redirect(url_for("traveler_view"))
+    return redirect(url_for("traveler_view_trip"))
 
 ### Registration page
 
@@ -86,21 +87,23 @@ def register_post():
 
 
     # # Redirect user to landing page
-    return redirect(url_for("traveler_view_request"))
+    return redirect(url_for("traveler_view_trip"))
 
 ### Logout
 @app.route("/logout")
 def logout():
     del session['user_id']
+    if 'trip_id' in session:
+        del session['trip_id']
     return redirect(url_for("user_login_get"))
 
 ### Traveler view
-@app.route("/traveler_view_request", methods=["GET"])
-def traveler_view_request():
-    return render_template("traveler_view_request.html")
+@app.route("/traveler_view_trip", methods=["GET"])
+def traveler_view_trip():
+    return render_template("traveler_view_trip.html")
 
-@app.route("/traveler_view_request", methods=["POST"])
-def traveler_view_request_post():
+@app.route("/traveler_view_trip", methods=["POST"])
+def traveler_view_trip_post():
 
     trip = Trip()
     trip.traveler_id = session['user_id']
@@ -108,6 +111,8 @@ def traveler_view_request_post():
     trip.traveler_current_long = request.form.get('traveler_current_long')
     trip.traveler_destination_lat = request.form.get('traveler_destination_lat')
     trip.traveler_destination_long = request.form.get('traveler_destination_long')
+    trip.traveler_current_address = request.form.get('traveler_current_address')
+    trip.traveler_destination_address = request.form.get('traveler_destination_address')
 
     # Add the user object to the database
     db_session.add(trip)
@@ -115,17 +120,41 @@ def traveler_view_request_post():
     # Save the user in the database
     db_session.commit()
 
+    session['trip_id'] = trip.id
+
     # Confirm
     return 'Success'
-    return redirect(url_for("traveler_view_trip"))
-
-@app.route("/traveler_view_trip", methods=["GET"])
-def traveler_view_trip():
-    return render_template("traveler_view_trip.html")
 
 @app.route("/traveler_status", methods=["GET"])
 def traveler_status():
-    return "commenced" 
+    if 'trip_id' not in session:
+        return ''
+
+    trip_id = session['trip_id']
+    status = model.get_status_for_trip(trip_id)
+    if status is None:
+        return "pending"
+
+    print session['trip_id']
+    print status.trip_id
+    print status.datetime_accepted
+    print status.datetime_commenced
+    print status.datetime_completed
+    if status.datetime_completed:
+        return "completed"
+    if status.datetime_commenced:
+        return "commenced"
+    if status.datetime_accepted:
+        return "accepted"
+    else: 
+        return "pending"
+
+
+
+@app.route("/traveler_rate_your_guide", methods=["GET"])
+def traveler_rate_your_guide():
+    del session['trip_id']
+    return render_template("traveler_rate_your_guide.html")
 
 ### Guide view
 @app.route("/guide_view_ahoy", methods=["GET"])
@@ -160,26 +189,71 @@ def guide_available_trips():
     return render_template("guide_available_trips.html",
                            trip_list = trips)
 
-# @app.route("/accept_voyage", methods=["POST"])
-# def accept_voyage():
-#     return render_template("commence_voyage.html")
-
 @app.route("/guide_view_trip", methods=["GET"])
 def guide_view_trip():
-    return render_template("guide_view_trip.html")
+
+    trip_id = request.args.get('id')
+    trip = model.get_trip(trip_id)
+    session['trip_id'] = trip_id
+    return render_template("guide_view_trip.html",
+                            trip = trip)
+    #request args get from URL, query DB, display 
+
+# @app.route("/guide_accept_voyage", methods=["POST"])
+# def guide_accept_voyage():
+#     status.trip_id = 
+#     status.datetime_accepted = what goes here?
+
+@app.route("/guide_accept_voyage", methods=["POST"])
+def guide_accept_voyage():
+    trip_id = session['trip_id']
+
+    status = Status()
+    status.trip_id = trip_id
+    status.datetime_accepted = datetime.datetime.now()
+
+    # Add the user object to the database
+    db_session.add(status)
+
+    # Save the user in the database
+    db_session.commit()
+
+    # Confirm
+    return render_template("guide_commence_voyage.html")
 
 @app.route("/guide_commence_voyage", methods=["POST"])
 def guide_commence_voyage():
-    return render_template("guide_commence_voyage.html")
+    trip_id = session['trip_id']
+    status = model.get_status_for_trip(trip_id)
+    status.datetime_commenced = datetime.datetime.now()
+
+    # Add the user object to the database
+    db_session.merge(status)
+
+    # Save the user in the database
+    db_session.commit()
+
+    return render_template("guide_complete_voyage.html")
 
 @app.route("/guide_complete_voyage", methods=["POST"])
 def guide_complete_voyage():
-    return render_template("guide_complete_voyage.html")
+
+    trip_id = session['trip_id']
+    status = model.get_status_for_trip(trip_id)
+    status.datetime_completed = datetime.datetime.now()
+
+    # Add the user object to the database
+    db_session.merge(status)
+
+    # Save the user in the database
+    db_session.commit()
+    del session['trip_id']
+
+    return url_for("guide_rate_your_traveler")
 
 @app.route("/guide_rate_your_traveler", methods=["GET"])
 def guide_rate_your_traveler():
     return render_template("guide_rate_your_traveler.html")
-
 
 ## End class declarations
 

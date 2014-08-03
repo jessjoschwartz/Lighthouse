@@ -60,12 +60,14 @@ $(document).ready(function() {
 
                 // Send location data to the db
                 var locationData = {
-                    traveler_current_lat: originMarker.position.B,
-                    traveler_current_long: originMarker.position.k,
-                    traveler_destination_lat: destinationMarker.position.B,
-                    traveler_destination_long: destinationMarker.position.k,
+                    traveler_current_lat: originMarker.position.k,
+                    traveler_current_long: originMarker.position.B,
+                    traveler_destination_lat: destinationMarker.position.k,
+                    traveler_destination_long: destinationMarker.position.B,
+                    traveler_current_address: $("#locations #currentLocation").val(),
+                    traveler_destination_address: destination, 
                 }
-                $.post('/traveler_view', locationData, function(data) {
+                $.post('/traveler_view_trip', locationData, function(data) {
                     console.log(data);
                 });
             }

@@ -1,65 +1,45 @@
-<!-- 
-<!DOCTYPE html>
-<html> -->
-{% extends "layout.html" %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" 
+             content="text/html; charset=iso-8859-1" />
+    <title>Full Row Select</title>
+    <script type="text/javascript">
+    function ChangeColor(tableRow, highLight)
+    {
+    if (highLight)
+    {
+      tableRow.style.backgroundColor = '#dcfac9';
+    }
+    else
+    {
+      tableRow.style.backgroundColor = 'white';
+    }
+  }
 
-{% block head %}
-
-<h2>Available Trips</h2>
-
-<!-- <div>
-    {% for trip in trip_list %}
-   	{{ trip.traveler.first_name }}
-   	{{ trip.traveler_current_lat }},
-    {{ trip.traveler_current_long }}
-    {{ trip.traveler_destination_lat }},
-    {{ trip.traveler_destination_long }}
-    <div class="trip-summary well">
-        <h2><a href="/trip/{traveler_id}"></a></h2>
-    </div>
-    {% endfor %}
-</div> -->
-
-<style>
-table,th,td
-{
-border:1px solid black;
-border-collapse:collapse;
-}
-th,td
-{
-padding:5px;
-}
-</style>
+  function DoNav(theUrl)
+  {
+  document.location.href = theUrl;
+  }
+  </script>
 </head>
 <body>
-
-<table style="width:300px">
-<tr>
-  <th>Firstname</th>
-  <th>Current Location</th>		
-  <th>Destination</th>
-</tr>
-<tr>
-	{% for trip in trip_list %}
-  <td>{{ trip.traveler.first_name }}</td>
-  <td>{{ trip.traveler_current_lat }}, {{ trip.traveler_current_long }}</td>		
-  <td>{{ trip.traveler_destination_lat }}, {{ trip.traveler_destination_long }}</td>
-</tr>
-  {% endfor %}
-
-{% endblock %}
-<script>
-$( "tr" ).click(function() {
-  $( this ).slideUp();
-});
-</script>
-<!-- </body>
- -->
-<!-- </html> 
- -->
-
-
-
-
-
+  <table width="100%" border="1" cellpadding="0" cellspacing="0">
+    <tr>
+    <th>Firstname</th>
+    <th>Current Location</th>   
+    <th>Destination</th>
+  </tr>
+    {% for trip in trip_list %}
+    <tr onmouseover="ChangeColor(this, true);" 
+              onmouseout="ChangeColor(this, false);" 
+              onclick="DoNav('/guide_view_trip?id={{ trip.id }}');">
+    <td>{{ trip.traveler.first_name }}</td>
+    <td>{{ trip.traveler_current_address }}</td>    
+    <td>{{ trip.traveler_destination_address }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

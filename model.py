@@ -38,6 +38,8 @@ class Trip(Base):
     traveler_current_long = Column(Float(20), nullable=False)
     traveler_destination_lat = Column(Float(20), nullable=False)
     traveler_destination_long = Column(Float(20), nullable=False)
+    traveler_current_address = Column(String(64), nullable=False)
+    traveler_destination_address = Column(String(64), nullable=False)
     # guide_current_location_lat = Column(Float(20), nullable=True)
     # guide_current_location_long = Column(Float(20), nullable=True)
 
@@ -73,6 +75,12 @@ def get_trips():
         print t.traveler
 
     return all_trips
+
+def get_trip(trip_id):
+    return session.query(Trip).get(trip_id)
+
+def get_status_for_trip(trip_id):
+    return session.query(Status).filter_by(trip_id = trip_id).first()
 
 def create_db():
     Base.metadata.create_all(engine)

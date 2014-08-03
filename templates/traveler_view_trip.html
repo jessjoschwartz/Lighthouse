@@ -1,3 +1,6 @@
+<!-- 
+<!DOCTYPE html>
+<html> -->
 {% extends "layout.html" %}
 
 {% block head %}
@@ -12,11 +15,11 @@
 {% block body %} 
 <!-- <body>
  -->    <div id="map-canvas"></div>
-<!--     <div id="controls" class="enterLocation">
+    	<div id="controls" class="enterLocation">
         <form id="locations">
             <input type="text" placeholder="Current Location" id="currentLocation">
             <input type="text" placeholder="Destination" id="destination">
-            <input type="submit" value="Request Voyage"> -->
+            <input type="submit" value="Request Voyage">
             <div id="mapCanvas"></div>
 
         </form>
@@ -28,42 +31,38 @@ function checkStatus(){
 		"url":"/traveler_status", 
 		"type": "GET" 
 	}).done(function(res) {
-		if res = empty datetime_accepted {
+		console.log("this is res"+res);
+		if (res == "pending") {
 		    $('#pending').show();
-		} else if res = complete datetime_accepted {
-		    $('#confirmed').show();
-		    $$('#pending')[0].hide();
-		} else if res = complete datetime_commenced {
+		} else if (res == "accepted") {
+		    $('#accepted').show();
+		    $('#pending').hide();
+		} else if (res == "commenced") {
 		    $('#commenced').show();
-		    $$('#pending')[0].hide();
-		} else if res = complete datetime_completed {
-		    $('#traveler_rate_your_guide').load("/traveler_rate_your_guide.html");
+		    $('#accepted').hide();
+		} else if (res == "completed") {
+		    $('body').load("/traveler_rate_your_guide");
 		}
-		//This runs when the call is successful
-		//if res = commenced
-			//then call next function and show that it's commenced
-			// else 
-		console.log("OK", res);
-		$('#under_map').html(res);
-		setupConfirmedStatus();
-		setTimeout(checkStatus,3000);
-	}).always(function(res) {
-		//This runs ALWAYS whether it fails or not
-		console.log("ALWAYS", res);
-	}).fail(function(res) {
-		//This runs when the call fails as in 404 or Internal server error 500
-		console.log("BOOO", res);
-   	});
+	});
+
 }
 $(document).ready(function(){
-	setTimeout(checkStatus,3000);
+	setInterval(checkStatus,1000);
 });
 
-
 </script>
-<div id="under_map">
-<p id="traveler_pending_status">Voyage pending</p>
-</div>
+		<div id="pending" style='display:none;'>
+            Pending
+        </div>
+        <div id="accepted" style='display:none;'>
+            Accepted
+        </div>
+        <div id="commenced" style='display:none;'>
+            Commenced
+        </div>
+        <div id="completed" style='display:none;'>
+            Completed
+        </div>
 <!-- </body>
  -->
 <!-- </html>
