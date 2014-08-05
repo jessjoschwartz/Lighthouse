@@ -1,7 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  <head>
+<!-- 
+<!DOCTYPE html>
+<html> -->
+{% extends "layout.html" %}
+
+{% block head %}
+
     <meta http-equiv="Content-Type" 
              content="text/html; charset=iso-8859-1" />
     <title>Full Row Select</title>
@@ -23,11 +26,13 @@
   document.location.href = theUrl;
   }
   </script>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}  
+  <h2>Available Trips</h2>
   <table width="100%" border="1" cellpadding="0" cellspacing="0">
     <tr>
-    <th>Firstname</th>
+    <th>First name</th>
     <th>Current Location</th>   
     <th>Destination</th>
   </tr>
@@ -41,5 +46,7 @@
     </tr>
     {% endfor %}
   </table>
-</body>
-</html>
+<!-- </body>
+ -->
+<!-- </html>
+ -->{% endblock %}

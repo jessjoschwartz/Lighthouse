@@ -79,13 +79,6 @@ def register_post():
     # Save the user in the database
     db_session.commit()
 
-    # session['user_id'] = user.id
-
-    # # save photo with user id as filename (1.jpg)
-
-    #Log in user
-
-
     # # Redirect user to landing page
     return redirect(url_for("traveler_view_trip"))
 
@@ -149,8 +142,6 @@ def traveler_status():
     else: 
         return "pending"
 
-
-
 @app.route("/traveler_rate_your_guide", methods=["GET"])
 def traveler_rate_your_guide():
     del session['trip_id']
@@ -168,24 +159,11 @@ def guide_view_ahoy_post():
     trip.guide_id = session['user_id']
     trip.guide_current_lat = request.form.get('guide_current_lat')
     trip.guide_current_long = request.form.get('guide_current_long')
-    print trip.guide_current_lat
-
-    # # Add the user object to the database
-    # db_session.add(trip)
-
-    # # Save the user in the database
-    # db_session.commit()
-
-    # Confirm
-    # return 'Success'
     return redirect(url_for("guide_available_trips"))
 
 @app.route("/guide_available_trips", methods=["GET"])
 def guide_available_trips():
-    # users = model.get_trips()
-    # print users
     trips = model.get_trips()
-    print trips
     return render_template("guide_available_trips.html",
                            trip_list = trips)
 
@@ -197,12 +175,6 @@ def guide_view_trip():
     session['trip_id'] = trip_id
     return render_template("guide_view_trip.html",
                             trip = trip)
-    #request args get from URL, query DB, display 
-
-# @app.route("/guide_accept_voyage", methods=["POST"])
-# def guide_accept_voyage():
-#     status.trip_id = 
-#     status.datetime_accepted = what goes here?
 
 @app.route("/guide_accept_voyage", methods=["POST"])
 def guide_accept_voyage():

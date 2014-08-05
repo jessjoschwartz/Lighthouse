@@ -40,17 +40,10 @@ class Trip(Base):
     traveler_destination_long = Column(Float(20), nullable=False)
     traveler_current_address = Column(String(64), nullable=False)
     traveler_destination_address = Column(String(64), nullable=False)
-    # guide_current_location_lat = Column(Float(20), nullable=True)
-    # guide_current_location_long = Column(Float(20), nullable=True)
 
     traveler = relationship("User", foreign_keys=[traveler_id]) 
     guide = relationship("User", foreign_keys=[guide_id]) 
 
-    # traveler = relationship("User", backref="trips") 
-    # guide = relationship("User" , backref="trips") 
-
-    # traveler = relationship("User", backref=backref("trips", order_by=id))
-    # guide = relationship("User", backref=backref("trips", order_by=id))
 
 class Status(Base):
     __tablename__ = "statuses"
@@ -71,8 +64,6 @@ class Trips(object):
 def get_trips():
     all_users = session.query(User).all()
     all_trips = session.query(Trip).all()
-    for t in all_trips:
-        print t.traveler
 
     return all_trips
 

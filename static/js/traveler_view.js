@@ -42,11 +42,6 @@ $(document).ready(function() {
 
                 var _route = response.routes[0].legs[0];
 
-                // originMarker = new google.maps.Marker({
-                //     position: _route.start_location,
-                //     map: map
-                // });
-
                 originMarker.setPosition(_route.start_location);
 
                 if (destinationMarker) {
@@ -117,17 +112,6 @@ $(document).ready(function() {
 
                 // Update current position info.
                 geocodePosition(latLng);
-
-                // // Add dragging event listener for markers.
-                // google.maps.event.addListener(originMarker, 'dragstart', function() {
-                //     updateMarkerAddress('Dragging...');
-                // });
-
-                // google.maps.event.addListener(originMarker, 'dragend', function() {
-                //     geocodePosition(originMarker.getPosition());
-                //     // LatLong of first marker
-                //     // console.log(originMarker.getPosition())
-                // });
 
             }, function() {
                 handleNoGeolocation(true);
