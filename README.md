@@ -13,11 +13,13 @@ From the time a guide accepts a request until he/she confirms the trip is comple
 My SQLAlchemy database has three tables: users, trips, and statuses. All users table data records information from the sign-up form. Data records in the trips table in the database when the traveler requests a trip. It extracts the latitudes and longitudes for the current location and destination and the corresponding physical addresses from Google Maps and IDs of the traveler and guide. The statuses table records the progress of the trip in three phases via datetime: accepted, confirmed, and completed.
 
 ## Next Steps
+
 **App functionality**
 [Build for mobile] Because Lighthouse is intended to be used on the go, it should be rebuilt for iOS or Android.
 [Profile and settings] Information about the guide and traveler should be displayed within the interface once a trip has been accepted. Additionally, the app also needs a profile management page, payment page, and help page.
 [Guide and traveler modes] Guide and traveler modes should be visible in the interface and allow users to toggle between them. Additionally, access to guide pages should be restricted so only guides can see these pages. 
 [Guide compensation] To streamline payment, it should be automated at the end of the trip. 
+
 **Maps-based features**
 [Distance minimums and caps] Lighthouse is intended for short distances of .25 to 2 miles. Lighthouse should calculate distances based on calculating route length from the Google Maps API and reject trips that are outside of the specified range. 
 [Suggest safest route] When a trip has been confirmed, the app should provide the safest suggested walking route using information from the Crimespotting API.
@@ -27,12 +29,13 @@ Communication and messaging
 [Real-time updates] Currently, Lighthouse uses polling to update the request sequence. For a better user experience, I would replace polling with SocketIO. I would also add guide ETA and real-time map tracking.
 [Automated communications] Travelers should be clearly alerted when his or her guide has arrived. Twilio could be implemented to text a traveler.
 [Cancellation] Both guides and travelers should have the option to cancel trips without penalty within five minutes of requesting or accepting and doing so should notify the other party.
+
 **Social elements**
 [User delight] When riding in a car, silence is socially acceptable. While walking, it’s potentially more awkward. To ensure a comfortable, friendly experience, Lighthouse should provide a page of fun conversation prompts.
 [Ratings system] A ratings system should be implemented for both guides and travelers to incentivize positive, friendly behavior. Ratings should be visible to both parties: to guides when they are selecting trips and travelers when they have receive confirmation that their trip has been accepted.
 [Invite social network] “Who are the guides and how do you ensure they are safe?” is the the most common question I’ve received about Lighthouse. Like Lyft and Uber, Lighthouse would have a rigorous application process and include background checks. Concerning recruitment, I think it would be interesting to target people with quantified self devices like UP24 and Fitbit because they would perceive Lighthouse as being a mutually beneficial service: they get more exercise and in doing so, help someone else.
 
-##Technologies Used
+## Technologies Used
 1. Python/HTML/CSS/jQuery/Javascript/AJAX
 2. Flask
 3. SQLAlchemy
