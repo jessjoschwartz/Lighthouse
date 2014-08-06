@@ -6,14 +6,14 @@ Lighthouse is Lyft for walking. It’s designed to give people peace of mind whe
 
 ## Usage
 
-I recommended using virtual environment. Otherwise, you will need to use the dependencies in requirements.txt
+I recommend using virtual environment. Otherwise, you will need to use the dependencies in requirements.txt.
 
 ```
 virtualenv env
 pip install -r requirements.txt
 ```
 
-After o
+Lighthouse will be running at http://localhost:8000. In order to see the app's full functionality, you will need to open two browser windows. I recommend opening a normal Chrome window and an incognito window.
 
 ## How Lighthouse Works
 When a user (“traveler”) wants to walk a short distance with someone else, he/she initiates a request via Lighthouse. Geolocation determines the current location and the user enters the destination and Google Places Autocomplete allows the destination field to accepts place names in case a user does not know the street address. The database records the request, which is then queried for the Available Trips page and shows the traveler’s current address, destination address, and first name. When a guide clicks on the trip request, he/she see the map that visualizes the current location and destination. 
