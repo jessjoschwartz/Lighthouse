@@ -13,10 +13,12 @@ virtualenv env
 pip install -r requirements.txt
 ```
 
+After o
+
 ## How Lighthouse Works
 When a user (“traveler”) wants to walk a short distance with someone else, he/she initiates a request via Lighthouse. Geolocation determines the current location and the user enters the destination and Google Places Autocomplete allows the destination field to accepts place names in case a user does not know the street address. The database records the request, which is then queried for the Available Trips page and shows the traveler’s current address, destination address, and first name. When a guide clicks on the trip request, he/she see the map that visualizes the current location and destination. 
 
-From the time a guide accepts a request until he/she confirms the trip is complete, the status of the journey is updated for both parties using AJAX polling. During the journey, ten state changes occur (see outline of changes here). At the start of the project, I studied apps like Lyft and Uber to understand the state changes and how they inform a passenger’s experience (see initial wireframes here). I also met with a Lyft engineer to learn more about the driver-side of the app and how this informs the user experience for both the driver and passenger. As a community manager, I’ve listened to a lot of feedback about product design, so it was important to me to make the state change process as streamlined as possible. I achieved this via polling and using ajax to make the page components modular. 
+From the time a guide accepts a request until he/she confirms the trip is complete, the status of the journey is updated for both parties using AJAX polling. During the journey, ten state changes occur (see [outline of changes] (https://docs.google.com/spreadsheets/d/1LqXgyzCkjNr8LkAIcKlpIBW6M3ayqkYE_pw17SM-rCM/edit#gid=0)). At the start of the project, I studied apps like Lyft and Uber to understand the state changes and how they inform a passenger’s experience (see [initial wireframes](https://docs.google.com/presentation/d/1P51XbKoUgKdpiFW4RN2zTdwodvypskIt07R2ELfU-3U/edit#slide=id.g38dd686e2_0252)). I also met with a Lyft engineer to learn more about the driver-side of the app and how this informs the user experience for both the driver and passenger. As a community manager, I’ve listened to a lot of feedback about product design, so it was important to me to make the state change process as streamlined as possible. I achieved this via polling and using ajax to make the page components modular. 
 
 ## Database Schema
 My SQLAlchemy database has three tables: users, trips, and statuses. All users table data records information from the sign-up form. Data records in the trips table in the database when the traveler requests a trip. It extracts the latitudes and longitudes for the current location and destination and the corresponding physical addresses from Google Maps and IDs of the traveler and guide. The statuses table records the progress of the trip in three phases via datetime: accepted, confirmed, and completed.
@@ -51,6 +53,6 @@ Communication and messaging
 - SQLAlchemy
 - Google Maps Javascript API V3
  
-*Credits: A huge thanks to the following people who helped me through making Lighthouse: Lenny Burdette, Daniel Kador,  Camille Teicheira, Ashley Lorden, Hackbright's instructors and TAs, and Jeremy Lubin.*
+*Credits: A huge thanks to the following people who helped me with making Lighthouse: Lenny Burdette, Daniel Kador,  Camille Teicheira, Ashley Lorden, Hackbright's instructors and TAs, and Jeremy Lubin.*
 
 
