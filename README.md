@@ -4,6 +4,15 @@ Lighthouse
 ## About Lighthouse
 Lighthouse is Lyft for walking. It’s designed to give people peace of mind when making brief trips -- trips now made by taxi to avoid the unease of walking alone in unsafe areas or after dark. Ultimately, the mission of Lighthouse is to fill a gap in current public and private transportation services and create safer, more friendly communities.
 
+## Usage
+
+I recommended using virtual environment. Otherwise, you will need to use the dependencies in requirements.txt
+
+```
+virtualenv env
+pip install -r requirements.txt
+```
+
 ## How Lighthouse Works
 When a user (“traveler”) wants to walk a short distance with someone else, he/she initiates a request via Lighthouse. Geolocation determines the current location and the user enters the destination and Google Places Autocomplete allows the destination field to accepts place names in case a user does not know the street address. The database records the request, which is then queried for the Available Trips page and shows the traveler’s current address, destination address, and first name. When a guide clicks on the trip request, he/she see the map that visualizes the current location and destination. 
 
@@ -37,9 +46,11 @@ Communication and messaging
 - Invite social network: “Who are the guides and how do you ensure they are safe?” is the the most common question I’ve received about Lighthouse. Like Lyft and Uber, Lighthouse would have a rigorous application process and include background checks. Concerning recruitment, I think it would be interesting to target people with quantified self devices like UP24 and Fitbit because they would perceive Lighthouse as being a mutually beneficial service: they get more exercise and in doing so, help someone else.
 
 ## Technologies Used
-1. Python/HTML/CSS/jQuery/Javascript/AJAX
-2. Flask
-3. SQLAlchemy
-4. Google Maps Javascript API V3
+- Python/HTML/CSS/jQuery/Javascript/AJAX
+- Flask
+- SQLAlchemy
+- Google Maps Javascript API V3
+ 
+*Credits: A huge thanks to the following people who helped me through making Lighthouse: Lenny Burdette, Daniel Kador,  Camille Teicheira, Ashley Lorden, Hackbright's instructors and TAs, and Jeremy Lubin.*
 
 
